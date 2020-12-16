@@ -8,7 +8,7 @@ exec=go build -ldflags "-X main.GitTag=$(GIT_TAG) -X main.BuildTime=$(BUILD_DATE
 
 all: build
 
-build: mod helloworld spider
+build: mod helloworld spider greeter
 
 mod:
 	go mod download && go mod tidy
@@ -18,6 +18,9 @@ spider:
 
 helloworld:
 	$(call exec,hello-world)
+
+greeter:
+	$(call exec,greeter-sample)
 
 .PHONY : clean
 

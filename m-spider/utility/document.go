@@ -42,7 +42,7 @@ func NewDocument(filePath, mote_name, urlStr string) *document {
 			return nil
 		}
 	} else {
-		log.Println("document 已存在")
+		log.Println("document 已存在", urlStr, ",save path = ", filepath)
 		return nil
 	}
 
@@ -53,23 +53,6 @@ func NewDocument(filePath, mote_name, urlStr string) *document {
 		content:  map[string]content{},
 		pages:    map[string]pages{},
 	}
-}
-
-// 请求html页面
-func newDocument(url string) (document *goquery.Document) {
-	body, err := HTTPResponse(url)
-	if body == nil || err != nil {
-		log.Println(err)
-		return
-	}
-	defer body.Close()
-
-	doc, err := goquery.NewDocumentFromReader(body)
-	if err != nil {
-		log.Println(err)
-		return
-	}
-	return doc
 }
 
 func FindDocument(webPath, url string, feature string) (mote string, a []string) {
@@ -126,6 +109,24 @@ func FindDocument(webPath, url string, feature string) (mote string, a []string)
 	}
 	return mote, ret
 }
+
+// 请求html页面
+func newDocument(url string) (document *goquery.Document) {
+	body, err := HTTPResponse(url)
+	if body == nil || err != nil {
+		log.Println(err)
+		return
+	}
+	defer body.Close()
+
+	doc, err := goquery.NewDocumentFromReader(body)
+	if err != nil {
+		log.Println(err)
+		return
+	}
+	return doc
+}
+
 
 func (this *document) FindAll() {
 	for this.url != "" {
