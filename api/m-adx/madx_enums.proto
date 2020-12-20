@@ -1,0 +1,326 @@
+// ***** OpenRTB Core enums ****************************************************
+
+syntax = "proto2";
+
+package openrtb;
+
+enum AuctionType {
+    FIRST_PRICE = 1;
+    SECOND_PRICE = 2;
+    FIXED_PRICE = 3;
+}
+
+enum BannerAdType {
+    XHTML_TEXT_AD = 1;
+    XHTML_BANNER_AD = 2;
+    JAVASCRIPT_AD = 3;
+    IFRAME = 4;
+}
+
+enum CreativeAttribute {
+    AUDIO_AUTO_PLAY = 1;
+    AUDIO_USER_INITIATED = 2;
+    EXPANDABLE_AUTOMATIC = 3;
+    EXPANDABLE_CLICK_INITIATED = 4;
+    EXPANDABLE_ROLLOVER_INITIATED = 5;
+    VIDEO_IN_BANNER_AUTO_PLAY = 6;
+    VIDEO_IN_BANNER_USER_INITIATED = 7;
+    POP = 8;
+    PROVOCATIVE_OR_SUGGESTIVE = 9;
+    ANNOYING = 10;
+    SURVEYS = 11;
+    TEXT_ONLY = 12;
+    USER_INTERACTIVE = 13;
+    WINDOWS_DIALOG_OR_ALERT_STYLE = 14;
+    HAS_AUDIO_ON_OFF_BUTTON = 15;
+    AD_CAN_BE_SKIPPED = 16;
+    FLASH = 17;
+}
+
+enum APIFramework {
+    VPAID_1 = 1;
+    VPAID_2 = 2;
+    MRAID_1 = 3;
+    ORMMA = 4;
+    MRAID_2 = 5;
+    MRAID_3 = 6;
+    OMID_1 = 7;
+}
+
+enum AdPosition {
+    UNKNOWN = 0;
+    ABOVE_THE_FOLD = 1;
+    DEPRECATED_LIKELY_BELOW_THE_FOLD = 2;
+    BELOW_THE_FOLD = 3;
+    HEADER = 4;
+    FOOTER = 5;
+    SIDEBAR = 6;
+    AD_POSITION_FULLSCREEN = 7;
+}
+
+enum VideoLinearity {
+    LINEAR = 1;
+    NON_LINEAR = 2;
+}
+
+enum Protocol {
+    VAST_1_0 = 1;
+    VAST_2_0 = 2;
+    VAST_3_0 = 3;
+    VAST_1_0_WRAPPER = 4;
+    VAST_2_0_WRAPPER = 5;
+    VAST_3_0_WRAPPER = 6;
+    VAST_4_0 = 7;
+    VAST_4_0_WRAPPER = 8;
+    DAAST_1_0 = 9;
+    DAAST_1_0_WRAPPER = 10;
+}
+
+enum PlaybackMethod {
+    AUTO_PLAY_SOUND_ON = 1;
+    AUTO_PLAY_SOUND_OFF = 2;
+    CLICK_TO_PLAY = 3;
+    MOUSE_OVER = 4;
+    ENTER_SOUND_ON = 5;
+    ENTER_SOUND_OFF = 6;
+}
+
+enum StartDelay {
+    PRE_ROLL = 0;
+    GENERIC_MID_ROLL = -1;
+    GENERIC_POST_ROLL = -2;
+}
+
+enum VideoPlacementType {
+    UNDEFINED_VIDEO_PLACEMENT = 0;
+    IN_STREAM_PLACEMENT = 1;
+    IN_BANNER_PLACEMENT = 2;
+    IN_ARTICLE_PLACEMENT = 3;
+    IN_FEED_PLACEMENT = 4;
+    FLOATING_PLACEMENT = 5;
+}
+
+enum PlaybackCessationMode {
+    COMPLETION_OR_USER = 1;
+    LEAVING_OR_USER = 2;
+    LEAVING_CONTINUES_OR_USER = 3;
+}
+
+enum ConnectionType {
+    CONNECTION_UNKNOWN = 0;
+    ETHERNET = 1;
+    WIFI = 2;
+    CELL_UNKNOWN = 3;
+    CELL_2G = 4;
+    CELL_3G = 5;
+    CELL_4G = 6;
+}
+
+enum ExpandableDirection {
+    LEFT = 1;
+    RIGHT = 2;
+    UP = 3;
+    DOWN = 4;
+    EXPANDABLE_FULLSCREEN = 5;
+}
+
+enum ContentDeliveryMethod {
+    STREAMING = 1;
+    PROGRESSIVE = 2;
+}
+
+enum ContentContext {
+    VIDEO = 1;
+    GAME = 2;
+    MUSIC = 3;
+    APPLICATION = 4;
+    TEXT = 5;
+    OTHER = 6;
+    CONTEXT_UNKNOWN = 7;
+}
+
+enum ProductionQuality {
+    QUALITY_UNKNOWN = 0;
+    PROFESSIONAL = 1;
+    PROSUMER = 2;
+    USER_GENERATED = 3;
+}
+
+enum LocationType {
+    GPS_LOCATION = 1;
+    IP = 2;
+    USER_PROVIDED = 3;
+}
+
+enum LocationService {
+    IP2LOCATION = 1;
+    NEUSTAR = 2;
+    MAXMIND = 3;
+    NETACUITY = 4;
+}
+
+enum DeviceType {
+    MOBILE = 1;
+    PERSONAL_COMPUTER = 2;
+    CONNECTED_TV = 3;
+    HIGHEND_PHONE = 4;
+    TABLET = 5;
+    CONNECTED_DEVICE = 6;
+    SET_TOP_BOX = 7;
+}
+
+enum CompanionType {
+    STATIC = 1;
+    HTML = 2;
+    COMPANION_IFRAME = 3;
+}
+
+enum QAGMediaRating {
+    ALL_AUDIENCES = 1;
+    EVERYONE_OVER_12 = 2;
+    MATURE = 3;
+}
+
+enum NoBidReason {
+    UNKNOWN_ERROR = 0;
+    TECHNICAL_ERROR = 1;
+    INVALID_REQUEST = 2;
+    KNOWN_WEB_SPIDER = 3;
+    SUSPECTED_NONHUMAN_TRAFFIC = 4;
+    CLOUD_DATACENTER_PROXYIP = 5;
+    UNSUPPORTED_DEVICE = 6;
+    BLOCKED_PUBLISHER = 7;
+    UNMATCHED_USER = 8;
+    DAILY_READER_CAP = 9;
+    DAILY_DOMAIN_CAP = 10;
+}
+
+enum LossReason {
+    BID_WON = 0;
+    INTERNAL_ERROR = 1;
+    IMP_EXPIRED = 2;
+    INVALID_BID = 3;
+    INVALID_DEAL_ID = 4;
+    INVALID_AUCTION_ID = 5;
+    INVALID_ADOMAIN = 6;
+    MISSING_MARKUP = 7;
+    MISSING_CREATIVE_ID = 8;
+    MISSING_PRICE = 9;
+    MISSING_MIN_CREATIVE_APPROVAL_DATA = 10;
+    BID_BELOW_FLOOR = 100;
+    BID_BELOW_DEAL_FLOOR = 101;
+    LOST_HIGHER_BID = 102;
+    LOST_PMP_DEAL = 103;
+    SEAT_BLOCKED = 104;
+    CREATIVE_REASON_UNKNOWN = 200;
+    CREATIVE_PENDING = 201;
+    CREATIVE_DISAPPROVED = 202;
+    CREATIVE_SIZE = 203;
+    CREATIVE_FORMAT = 204;
+    CREATIVE_ADVERTISER_EXCLUSION = 205;
+    CREATIVE_APP_EXCLUSION = 206;
+    CREATIVE_NOT_SECURE = 207;
+    CREATIVE_LANGUAGE_EXCLUSION = 208;
+    CREATIVE_CATEGORY_EXCLUSION = 209;
+    CREATIVE_ATTRIBUTE_EXCLUSION = 210;
+    CREATIVE_ADTYPE_EXCLUSION = 211;
+    CREATIVE_ANIMATION_LONG = 212;
+    CREATIVE_NOT_ALLOWED_PMP = 213;
+}
+
+enum FeedType {
+    MUSIC_SERVICE = 1;
+    BROADCAST = 2;
+    PODCAST = 3;
+}
+
+enum VolumeNormalizationMode {
+    NONE = 0;
+    AVERAGE_VOLUME = 1;
+    PEAK_VOLUME = 2;
+    LOUDNESS = 3;
+    CUSTOM_VOLUME = 4;
+}
+
+// ***** OpenRTB Native enums **************************************************
+
+enum LayoutId {
+    CONTENT_WALL = 1;
+    APP_WALL = 2;
+    NEWS_FEED = 3;
+    CHAT_LIST = 4;
+    CAROUSEL = 5;
+    CONTENT_STREAM = 6;
+    GRID = 7;
+
+}
+
+enum AdUnitId {
+    PAID_SEARCH_UNIT = 1;
+    RECOMMENDATION_WIDGET = 2;
+    PROMOTED_LISTING = 3;
+    IAB_IN_AD_NATIVE = 4;
+    ADUNITID_CUSTOM = 5;
+
+}
+
+enum ContextType {
+    CONTENT = 1;
+    SOCIAL = 2;
+    PRODUCT = 3;
+}
+
+enum ContextSubtype {
+    CONTENT_GENERAL_OR_MIXED = 10;
+    CONTENT_ARTICLE = 11;
+    CONTENT_VIDEO = 12;
+    CONTENT_AUDIO = 13;
+    CONTENT_IMAGE = 14;
+    CONTENT_USER_GENERATED = 15;
+    SOCIAL_GENERAL = 20;
+    SOCIAL_EMAIL = 21;
+    SOCIAL_CHAT_IM = 22;
+    PRODUCT_SELLING = 30;
+    PRODUCT_MARKETPLACE = 31;
+    PRODUCT_REVIEW = 32;
+}
+
+enum PlacementType {
+    IN_FEED = 1;
+    ATOMIC_UNIT = 2;
+    OUTSIDE = 3;
+    RECOMMENDATION = 4;
+}
+
+enum DataAssetType {
+    SPONSORED = 1;
+    DESC = 2;
+    RATING = 3;
+    LIKES = 4;
+    DOWNLOADS = 5;
+    PRICE = 6;
+    SALEPRICE = 7;
+    PHONE = 8;
+    ADDRESS = 9;
+    DESC2 = 10;
+    DISPLAYURL = 11;
+    CTATEXT = 12;
+}
+
+enum ImageAssetType {
+    ICON = 1;
+    LOGO = 2;
+    MAIN = 3;
+}
+
+enum EventType {
+    IMPRESSION = 1;
+    VIEWABLE_MRC_50 = 2;
+    VIEWABLE_MRC_100 = 3;
+    VIEWABLE_VIDEO_50 = 4;
+}
+
+enum EventTrackingMethod {
+    IMG = 1;
+    JS = 2;
+}

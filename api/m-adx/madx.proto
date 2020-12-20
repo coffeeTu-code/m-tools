@@ -1,0 +1,493 @@
+// ***** OpenRTB Core request and response ****************************************************
+
+syntax = "proto2";
+
+package openrtb;
+
+import "madx_enums.proto";
+
+message BidRequest {
+    required string id = 1;
+    repeated Imp imp = 2;
+    oneof distributionchannel_oneof {
+        Site site = 3;
+        App app = 4;
+    }
+    optional Device device = 5;
+    optional User user = 6;
+    optional AuctionType at = 7 [default = SECOND_PRICE];
+    optional int32 tmax = 8;
+    repeated string wseat = 9;
+    optional bool allimps = 10 [default = false];
+    repeated string cur = 11;
+    repeated string bcat = 12;
+    repeated string badv = 13;
+    optional Regs regs = 14;
+    optional bool test = 15 [default = false];
+    repeated string bapp = 16;
+    repeated string bseat = 17;
+    repeated string wlang = 18;
+    optional Source source = 19;
+
+    message Imp {
+        required string id = 1;
+        optional Banner banner = 2;
+        optional Video video = 3;
+        optional Audio audio = 15;
+        optional string displaymanager = 4;
+        optional string displaymanagerver = 5;
+        optional bool instl = 6;
+        optional string tagid = 7;
+        optional double bidfloor = 8 [default = 0];
+        optional string bidfloorcur = 9 [default = "USD"];
+        optional bool clickbrowser = 16;
+        optional bool secure = 12;
+        repeated string iframebuster = 10;
+        optional Pmp pmp = 11;
+        optional Native native = 13;
+        optional int32 exp = 14;
+        repeated Metric metric = 17;
+
+        message Banner {
+            optional int32 w = 1;
+            optional int32 h = 2;
+            repeated Format format = 15;
+            optional int32 wmax = 11 [deprecated = true];
+            optional int32 hmax = 12 [deprecated = true];
+            optional int32 wmin = 13 [deprecated = true];
+            optional int32 hmin = 14 [deprecated = true];
+            optional string id = 3;
+            optional AdPosition pos = 4;
+            repeated BannerAdType btype = 5 [packed = true];
+            repeated CreativeAttribute battr = 6 [packed = true];
+            repeated string mimes = 7;
+            optional bool topframe = 8;
+            repeated ExpandableDirection expdir = 9 [packed = true];
+            repeated APIFramework api = 10 [packed = true];
+            optional bool vcm = 16;
+
+            message Format {
+                optional int32 w = 1;
+                optional int32 h = 2;
+                optional int32 wratio = 3;
+                optional int32 hratio = 4;
+                optional int32 wmin = 5;
+            }
+        }
+
+        message Video {
+            repeated string mimes = 1;
+            optional VideoLinearity linearity = 2;
+            optional int32 minduration = 3;
+            optional int32 maxduration = 4;
+            optional Protocol protocol = 5 [deprecated = true];
+            repeated Protocol protocols = 21 [packed = true];
+            optional int32 w = 6;
+            optional int32 h = 7;
+            optional int32 startdelay = 8;
+            optional bool skip = 23;
+            optional int32 skipmin = 24;
+            optional int32 skipafter = 25;
+            optional int32 sequence = 9 [default = 1];
+            repeated CreativeAttribute battr = 10 [packed = true];
+            optional int32 maxextended = 11;
+            optional int32 minbitrate = 12;
+            optional int32 maxbitrate = 13;
+            optional bool boxingallowed = 14 [default = true];
+            repeated PlaybackMethod playbackmethod = 15 [packed = true];
+            repeated ContentDeliveryMethod delivery = 16 [packed = true];
+            optional AdPosition pos = 17;
+            repeated Banner companionad = 18;
+            optional CompanionAd companionad_21 = 22 [deprecated = true];
+            repeated APIFramework api = 19 [packed = true];
+            repeated CompanionType companiontype = 20 [packed = true];
+            optional VideoPlacementType placement = 26;
+            optional PlaybackCessationMode playbackend = 27;
+
+            message CompanionAd {
+                repeated Banner banner = 1;
+            }
+        }
+
+        message Audio {
+            repeated string mimes = 1;
+            optional int32 minduration = 2;
+            optional int32 maxduration = 3;
+            repeated Protocol protocols = 4 [packed = true];
+            optional int32 startdelay = 5;
+            optional int32 sequence = 6 [default = 1];
+            repeated CreativeAttribute battr = 7 [packed = true];
+            optional int32 maxextended = 8;
+            optional int32 minbitrate = 9;
+            optional int32 maxbitrate = 10;
+            repeated ContentDeliveryMethod delivery = 11 [packed = true];
+            repeated Banner companionad = 12;
+            repeated APIFramework api = 13 [packed = true];
+            repeated CompanionType companiontype = 20 [packed = true];
+            optional int32 maxseq = 21;
+            optional FeedType feed = 22;
+            optional bool stitched = 23;
+            optional VolumeNormalizationMode nvol = 24;
+        }
+
+        message Native {
+            oneof request_oneof {
+                string request = 1;
+                NativeRequest request_native = 50;
+            }
+            optional string ver = 2;
+            repeated APIFramework api = 3 [packed = true];
+            repeated CreativeAttribute battr = 4 [packed = true];
+        }
+
+        message Pmp {
+            optional bool private_auction = 1 [default = false];
+            repeated Deal deals = 2;
+
+            message Deal {
+                required string id = 1;
+                optional double bidfloor = 2 [default = 0];
+                optional string bidfloorcur = 3 [default = "USD"];
+                repeated string wseat = 4;
+                repeated string wadomain = 5;
+                optional AuctionType at = 6;
+            }
+        }
+
+        message Metric {
+            optional string type = 1;
+            optional double value = 2;
+            optional string vendor = 3;
+        }
+    }
+
+    message Site {
+        optional string id = 1;
+        optional string name = 2;
+        optional string domain = 3;
+        repeated string cat = 4;
+        repeated string sectioncat = 5;
+        repeated string pagecat = 6;
+        optional string page = 7;
+        optional bool privacypolicy = 8;
+        optional string ref = 9;
+        optional string search = 10;
+        optional Publisher publisher = 11;
+        optional Content content = 12;
+        optional string keywords = 13;
+        optional bool mobile = 15;
+    }
+
+    message App {
+        optional string id = 1;
+        optional string name = 2;
+        optional string domain = 3;
+        repeated string cat = 4;
+        repeated string sectioncat = 5;
+        repeated string pagecat = 6;
+        optional string ver = 7;
+        optional string bundle = 8;
+        optional bool privacypolicy = 9;
+        optional bool paid = 10;
+        optional Publisher publisher = 11;
+        optional Content content = 12;
+        optional string keywords = 13;
+        optional string storeurl = 16;
+    }
+
+    message Publisher {
+        optional string id = 1;
+        optional string name = 2;
+        repeated string cat = 3;
+        optional string domain = 4;
+    }
+
+    message Content {
+        optional string id = 1;
+        optional int32 episode = 2;
+        optional string title = 3;
+        optional string series = 4;
+        optional string season = 5;
+        optional string artist = 21;
+        optional string genre = 22;
+        optional string album = 23;
+        optional string isrc = 24;
+        optional string url = 6;
+        repeated string cat = 7;
+        optional ProductionQuality prodq = 25;
+        optional ProductionQuality videoquality = 8 [deprecated = true];
+        optional string keywords = 9;
+        optional string contentrating = 10;
+        optional string userrating = 11;
+        optional ContentContext context = 20;
+        optional string context_22 = 12;
+        optional bool livestream = 13;
+        optional bool sourcerelationship = 14;
+        optional Producer producer = 15;
+        optional int32 len = 16;
+        optional QAGMediaRating qagmediarating = 17;
+        optional bool embeddable = 18;
+        optional string language = 19;
+    }
+
+    message Producer {
+        optional string id = 1;
+        optional string name = 2;
+        repeated string cat = 3;
+        optional string domain = 4;
+    }
+
+    message Device {
+        optional bool dnt = 1;
+        optional string ua = 2;
+        optional string ip = 3;
+        optional Geo geo = 4;
+        optional string didsha1 = 5;
+        optional string didmd5 = 6;
+        optional string dpidsha1 = 7;
+        optional string dpidmd5 = 8;
+        optional string ipv6 = 9;
+        optional string carrier = 10;
+        optional string language = 11;
+        optional string make = 12;
+        optional string model = 13;
+        optional string os = 14;
+        optional string osv = 15;
+        optional string hwv = 24;
+        optional int32 w = 25;
+        optional int32 h = 26;
+        optional int32 ppi = 27;
+        optional double pxratio = 28;
+        optional bool js = 16;
+        optional bool geofetch = 29;
+        optional ConnectionType connectiontype = 17;
+        optional DeviceType devicetype = 18;
+        optional string flashver = 19;
+        optional string ifa = 20;
+        optional string macsha1 = 21;
+        optional string macmd5 = 22;
+        optional bool lmt = 23;
+        optional string mccmnc = 30;
+    }
+
+    message Geo {
+        optional double lat = 1;
+        optional double lon = 2;
+        optional string country = 3;
+        optional string region = 4;
+        optional string regionfips104 = 5;
+        optional string metro = 6;
+        optional string city = 7;
+        optional string zip = 8;
+        optional LocationType type = 9;
+        optional int32 accuracy = 11;
+        optional int32 lastfix = 12;
+        optional LocationService ipservice = 13;
+        optional int32 utcoffset = 10;
+    }
+
+    message User {
+        optional string id = 1;
+        optional string buyeruid = 2;
+        optional int32 yob = 3;
+        optional string gender = 4;
+        optional string keywords = 5;
+        optional string customdata = 6;
+        optional Geo geo = 7;
+        repeated Data data = 8;
+    }
+
+    message Data {
+        optional string id = 1;
+        optional string name = 2;
+        repeated Segment segment = 3;
+
+        message Segment {
+            optional string id = 1;
+            optional string name = 2;
+            optional string value = 3;
+        }
+    }
+
+    message Regs {
+        optional bool coppa = 1;
+    }
+
+    message Source {
+        optional bool fd = 1;
+        optional string tid = 2;
+        optional string pchain = 3;
+    }
+
+}
+
+message NativeRequest {
+    optional string ver = 1;
+    optional LayoutId layout = 2;
+    optional AdUnitId adunit = 3;
+    optional ContextType context = 7;
+    optional ContextSubtype contextsubtype = 8;
+    optional PlacementType plcmttype = 9;
+    optional int32 plcmtcnt = 4 [default = 1];
+    optional int32 seq = 5 [default = 0];
+    repeated Asset assets = 6;
+    optional bool aurlsupport = 11;
+    optional bool durlsupport = 12;
+    repeated EventTrackers eventtrackers = 13;
+    optional bool privacy = 14;
+
+    message Asset {
+        required int32 id = 1;
+        optional bool required = 2 [default = false];
+        oneof asset_oneof {
+            Title title = 3;
+            Image img = 4;
+            BidRequest.Imp.Video video = 5;
+            Data data = 6;
+        }
+
+        message Title {
+            required int32 len = 1;
+        }
+
+        message Image {
+            optional ImageAssetType type = 1;
+            optional int32 w = 2;
+            optional int32 h = 3;
+            optional int32 wmin = 4;
+            optional int32 hmin = 5;
+            repeated string mimes = 6;
+        }
+
+        message Data {
+            required DataAssetType type = 1;
+            optional int32 len = 2;
+        }
+    }
+
+    message EventTrackers {
+        required EventType event = 1;
+        repeated EventTrackingMethod methods = 2;
+    }
+}
+
+message BidResponse {
+    required string id = 1;
+    repeated SeatBid seatbid = 2;
+    optional string bidid = 3;
+    optional string cur = 4;
+    optional string customdata = 5;
+    optional NoBidReason nbr = 6;
+    extensions 100 to 9999;
+
+    message SeatBid {
+        repeated Bid bid = 1;
+        optional string seat = 2;
+        optional bool group = 3 [default = false];
+
+        message Bid {
+            required string id = 1;
+            required string impid = 2;
+            required double price = 3;
+            optional string adid = 4;
+            optional string nurl = 5;
+
+            oneof adm_oneof {
+                string adm = 6;
+                NativeResponse adm_native = 50;
+                VAST adm_vast = 51;
+            }
+
+            repeated string adomain = 7;
+            optional string bundle = 14;
+            optional string iurl = 8;
+            optional string cid = 9;
+            optional string crid = 10;
+            repeated string cat = 15;
+            repeated CreativeAttribute attr = 11 [packed = true];
+            optional APIFramework api = 18;
+            optional Protocol protocol = 19;
+            optional QAGMediaRating qagmediarating = 20;
+            optional string dealid = 13;
+            optional int32 w = 16;
+            optional int32 h = 17;
+            optional int32 exp = 21;
+            optional string burl = 22;
+            optional string lurl = 23;
+            optional string tactic = 24;
+            optional string language = 25;
+            optional int32 wratio = 26;
+            optional int32 hratio = 27;
+        }
+    }
+}
+
+message NativeResponse {
+    optional string ver = 1;
+    repeated Asset assets = 2;
+    optional string assetsurl = 6;
+    optional string dcourl = 7;
+    required Link link = 3;
+    repeated string imptrackers = 4;
+    optional string jstracker = 5;
+    repeated EventTracker eventtrackers = 8;
+    optional string privacy = 9;
+
+    message Link {
+        required string url = 1;
+        repeated string clicktrackers = 2;
+        optional string fallback = 3;
+    }
+
+    message Asset {
+        required int32 id = 1;
+        optional bool required = 2 [default = false];
+        oneof asset_oneof {
+            Title title = 3;
+            Image img = 4;
+            Video video = 5;
+            Data data = 6;
+        }
+        optional Link link = 7;
+
+        message Title {
+            required string text = 1;
+            optional int32 len = 2;
+        }
+
+        message Image {
+            optional ImageAssetType type = 4;
+            required string url = 1;
+            optional int32 w = 2;
+            optional int32 h = 3;
+        }
+
+        message Data {
+            optional DataAssetType type = 3;
+            optional int32 len = 4;
+            optional string label = 1;
+            required string value = 2;
+        }
+
+        message Video {
+            required string vasttag = 1;
+        }
+    }
+
+    message EventTracker {
+        optional EventType event = 1;
+        required EventTrackingMethod method = 2;
+        optional string url = 3;
+    }
+}
+
+message VAST {
+    optional string version = 1;
+    repeated Ad ads = 2;
+
+    message Ad {
+        required int32 id = 1;
+        optional int32 sequence = 2 [default = 1];
+        //required InLine inline = 3;
+    }
+}

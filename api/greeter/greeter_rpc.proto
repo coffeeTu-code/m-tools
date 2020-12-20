@@ -2,9 +2,7 @@
 
 syntax = "proto3";
 
-package grpc_template;
-
-option go_package = "helloword/code/go/go_grpc_template/api/greeter;greeter";
+package greeter;
 
 import "greeter.proto";
 
